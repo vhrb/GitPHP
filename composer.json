@@ -1,0 +1,25 @@
+{
+	"name": "vhrb/git",
+	"description": "Git control for PHP",
+	"license": "Apache-2.0",
+	"authors": [
+		{
+			"name": "Michal Dobrovolný",
+			"email": "xdobro4@gmail.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"nette/robot-loader": "~2.3@dev"
+	},
+	"require-dev": {
+	},
+	"autoload": {
+		"psr-0": {
+			"Vhrb\\Git\\": "src/"
+		},
+		"classmap": [
+			"src/Vhrb/Git/exceptions.php"
+		]
+	}
+}
