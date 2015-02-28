@@ -27,6 +27,9 @@ class Command
 	/** @var  string (path) */
 	protected $cwd;
 
+	/** @var array */
+	protected $args = [];
+
 	function __construct($command = NULL)
 	{
 		if ($command !== NULL)
@@ -122,7 +125,20 @@ class Command
 	 */
 	public function appendCommand($command)
 	{
-		$this->command .= $command;
+		$this->command .= ' ' . trim($command);
+
+		return $this;
+	}
+
+	/**
+	 * @param $name
+	 * @param $value
+	 *
+	 * @return $this
+	 */
+	public function addArgument($name, $value)
+	{
+		$this->args[trim($name)] = trim($value);
 
 		return $this;
 	}

@@ -1,6 +1,9 @@
 <?php
 namespace Vhrb\Git;
 
+use Nette\Utils\ArrayHash;
+use Nette\Utils\Strings;
+
 class Repository
 {
 
@@ -17,12 +20,11 @@ class Repository
 		return $this;
 	}
 
-
-	protected function run(array $args)
+	public function run(array $args)
 	{
 		$this->lastCommand = new Command();
 		$this->lastCommand->setCwd($this->path);
-		$this->lastCommand->setCommand(implode(' ', $args));
+		$this->lastCommand->setCommand(Git::getGitCommand() . ' ' . implode(' ', $args));
 		$this->lastCommand->run();
 
 		return $this->lastCommand;
@@ -42,7 +44,6 @@ class Repository
 		if (!$create) return $this;
 
 		$this->run([
-			Git::getGitCommand(),
 			'init',
 			$this->path,
 		]);
@@ -71,7 +72,6 @@ class Repository
 	public function fetch($remote = 'origin')
 	{
 		$command = $this->run([
-			Git::getGitCommand(),
 			'fetch',
 			$remote,
 		]);
@@ -85,7 +85,6 @@ class Repository
 	public function fetchAll()
 	{
 		$command = $this->run([
-			Git::getGitCommand(),
 			'fetch',
 		]);
 
@@ -95,7 +94,6 @@ class Repository
 	public function checkout($branch)
 	{
 		$command = $this->run([
-			Git::getGitCommand(),
 			'checkout',
 			$branch,
 		]);
@@ -112,7 +110,6 @@ class Repository
 	public function addRemote($name, $url)
 	{
 		return $this->run([
-			Git::getGitCommand(),
 			'remote',
 			'add',
 			$name,
@@ -123,14 +120,32 @@ class Repository
 	/**
 	 * @return array
 	 */
-	public function listRemote()
+	public function remoteList()
 	{
-		$out = $this->run([
-			Git::getGitCommand(),
+		$command = $this->run([
 			'remote',
 			'-v',
-		])->getOut();
+		]);
 
-		return explode("\n", $out);
+		$remotes = new ArrayHash();
+		foreach (explode("\n", $command->getOut()) as $remoteString) {
+			$matches = Strings::match($remoteString, '~([a-z0-9]+)\W(.+)\W(push|fetch)~i');
+
+			if (count($matches) !== 4) throw new InvalidStateException('Invalid remote: ' . $remoteString);
+
+			$name = $matches[1];
+			$url = $matches[2];
+//			$type = $matches[3];
+
+			if (!$remotes->offsetExists($name)) {
+				$remote = new Remote($this, $name, $url);
+//				var_dump($name);
+				$remotes->$name = $remote;
+			}
+//			$remote->addType($type);
+		}
+
+		return $remotes;
 	}
+
 }

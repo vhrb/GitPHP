@@ -8,9 +8,9 @@
 			"email": "xdobro4@gmail.com"
 		}
 	],
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"require": {
-		"nette/robot-loader": "~2.3@dev"
+		"nette/utils": ">=2"
 	},
 	"require-dev": {
 	},
