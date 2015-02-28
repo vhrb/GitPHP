@@ -1,13 +1,11 @@
 <?php
 namespace Vhrb\Git;
 
+use Vhrb\Git\Command\Response;
 use Nette\Object;
-use Nette\Utils\Strings;
-use Nette\Utils\Validators;
 
 class Remote extends Object
 {
-	const URI_EXP = '[a-z]+@*.+\.git';
 
 	/**
 	 * @var
@@ -48,7 +46,7 @@ class Remote extends Object
 	{
 		$this->repository = $repository;
 		$this->name = $name;
-		$this->url = $this->validateUrl($url);
+		$this->url = Validators::validateUrl($url);
 	}
 
 	public function setUrl($url)
@@ -104,27 +102,14 @@ class Remote extends Object
 	}
 
 	/**
-	 * @param Command $command
+	 * @param Response $command
 	 *
 	 * @return bool
 	 */
-	protected function executeError(Command $command)
+	protected function executeError(Response $command)
 	{
 		if ($this->throwExceptions === FALSE) return FALSE;
 		throw new InvalidStateException($command->getError());
-	}
-
-	/**
-	 * @param $url
-	 *
-	 * @return mixed
-	 */
-	protected function validateUrl($url)
-	{
-		$url = trim($url);
-		if (!Validators::isUrl($url) && !Strings::match($url, '~^' . self::URI_EXP . '$~i')) throw new InvalidArgumentException('Invalid url: ' . $url);
-
-		return $url;
 	}
 
 }

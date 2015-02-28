@@ -3,6 +3,10 @@ namespace Vhrb\Git;
 
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Strings;
+use Vhrb\Git\Command\Executor;
+use Vhrb\Git\Command\IExecutor;
+use Vhrb\Git\Command\Request;
+use Vhrb\Git\Command\Response;
 
 class Repository
 {
@@ -10,24 +14,40 @@ class Repository
 	/** @var  string */
 	protected $path;
 
-	/** @var  NULL|Command */
-	protected $lastCommand;
+	/** @var  NULL|Request */
+	protected $lastCommandRequest;
 
-	function __construct($path, $create = FALSE)
+	protected $commandExecutor;
+
+	function __construct($path = NULL, $create = FALSE)
 	{
-		$this->setPath($path, $create);
+		if ($path) $this->setPath($path, $create);
 
 		return $this;
 	}
 
+	/**
+	 * @return IExecutor
+	 */
+	public function getCommandExecutor()
+	{
+		if ($this->commandExecutor === NULL) $this->commandExecutor = new Executor();
+
+		return $this->commandExecutor;
+	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return Response
+	 */
 	public function run(array $args)
 	{
-		$this->lastCommand = new Command();
-		$this->lastCommand->setCwd($this->path);
-		$this->lastCommand->setCommand(Git::getGitCommand() . ' ' . implode(' ', $args));
-		$this->lastCommand->run();
+		$this->lastCommandRequest = new Request();
+		$this->lastCommandRequest->setCwd($this->path);
+		$this->lastCommandRequest->setCommand(Git::getGitCommand() . ' ' . implode(' ', $args));
 
-		return $this->lastCommand;
+		return $this->getCommandExecutor()->run($this->lastCommandRequest);
 	}
 
 	/**
@@ -67,7 +87,7 @@ class Repository
 	/**
 	 * @param string $remote
 	 *
-	 * @return string
+	 * @return Response
 	 */
 	public function fetch($remote = 'origin')
 	{
@@ -80,22 +100,39 @@ class Repository
 	}
 
 	/**
-	 * @return string
+	 * @return Response
 	 */
 	public function fetchAll()
 	{
+		return $this->fetch(NULL);
+	}
+
+	/**
+	 * @param $point
+	 *
+	 * @return Response
+	 */
+	public function checkout($point)
+	{
 		$command = $this->run([
-			'fetch',
+			'checkout',
+			$point,
 		]);
 
 		return $command;
 	}
 
-	public function checkout($branch)
+	/**
+	 * @param $point
+	 * @param bool $hard
+	 *
+	 * @return Response
+	 */
+	public function reset($point, $hard = FALSE)
 	{
 		$command = $this->run([
-			'checkout',
-			$branch,
+			'reset' . ($hard ? '--hard' : NULL),
+			$point,
 		]);
 
 		return $command;
@@ -129,8 +166,9 @@ class Repository
 
 		$remotes = new ArrayHash();
 		foreach (explode("\n", $command->getOut()) as $remoteString) {
-			$matches = Strings::match($remoteString, '~([a-z0-9]+)\W(.+)\W(push|fetch)~i');
+			if (empty($remoteString)) continue;
 
+			$matches = Strings::match($remoteString, '~([a-z0-9]+)\W(.+)\W(push|fetch)~i');
 			if (count($matches) !== 4) throw new InvalidStateException('Invalid remote: ' . $remoteString);
 
 			$name = $matches[1];
