@@ -29,11 +29,23 @@ class Repository
 	/**
 	 * @return IExecutor
 	 */
-	public function getCommandExecutor()
+	public function getExecutor()
 	{
 		if ($this->commandExecutor === NULL) $this->commandExecutor = new Executor();
 
 		return $this->commandExecutor;
+	}
+
+	/**
+	 * @param IExecutor $executor
+	 *
+	 * @return $this
+	 */
+	public function setExecutor(IExecutor $executor)
+	{
+		$this->commandExecutor = $executor;
+
+		return $this;
 	}
 
 	/**
@@ -47,7 +59,7 @@ class Repository
 		$this->lastCommandRequest->setCwd($this->path);
 		$this->lastCommandRequest->setCommand(Git::getGitCommand() . ' ' . implode(' ', $args));
 
-		return $this->getCommandExecutor()->run($this->lastCommandRequest);
+		return $this->getExecutor()->run($this->lastCommandRequest);
 	}
 
 	/**
@@ -76,6 +88,7 @@ class Repository
 	{
 		if (!file_exists($this->path)) {
 			if (!empty($this->path) && $create) {
+				var_dump($this->path);
 				mkdir($this->path);
 			}
 			else {
