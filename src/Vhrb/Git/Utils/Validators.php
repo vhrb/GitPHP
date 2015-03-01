@@ -1,8 +1,9 @@
 <?php
 
-namespace Vhrb\Git;
+namespace Vhrb\Git\Utils;
 
 use Nette\Utils\Strings;
+use Vhrb\Git\InvalidArgumentException;
 
 abstract class Validators
 {

@@ -3,6 +3,7 @@ namespace Vhrb\Git;
 
 use Vhrb\Git\Command\Response;
 use Nette\Object;
+use Vhrb\Git\Utils\Validators;
 
 class Remote extends Object
 {
@@ -89,6 +90,16 @@ class Remote extends Object
 
 		return $this;
 	}
+
+	public function fetch()
+	{
+		return $this->repository->fetch($this->name);
+	}
+
+//	public function push()
+//	{
+//		return $this->repository->push($this->name);
+//	}
 
 	public function remove()
 	{
