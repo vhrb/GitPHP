@@ -81,19 +81,10 @@ class Repository
 		]);
 	}
 
-	/**
-	 * @param bool $create
-	 */
-	protected function validate($create = FALSE)
+	protected function validate()
 	{
-		if (!file_exists($this->path)) {
-			if (!empty($this->path) && $create) {
-				var_dump($this->path);
-				mkdir($this->path);
-			}
-			else {
-				throw new InvalidArgumentException('Invalid repository path: ' . $this->path);
-			}
+		if (!file_exists($this->path) && empty($this->path)) {
+			throw new InvalidArgumentException('Invalid repository path: ' . $this->path);
 		}
 	}
 
