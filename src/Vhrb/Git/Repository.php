@@ -15,7 +15,7 @@ class Repository
 	protected $path;
 
 	/** @var  NULL|Request */
-	protected $lastCommandRequest;
+	protected $lastRequest;
 
 	protected $commandExecutor;
 
@@ -55,11 +55,11 @@ class Repository
 	 */
 	public function run(array $args)
 	{
-		$this->lastCommandRequest = new Request();
-		$this->lastCommandRequest->setCwd($this->path);
-		$this->lastCommandRequest->setCommand(Git::getGitCommand() . ' ' . implode(' ', $args));
+		$this->lastRequest = new Request();
+		$this->lastRequest->setCwd($this->path);
+		$this->lastRequest->setCommand(Git::getGitCommand() . ' ' . implode(' ', $args));
 
-		return $this->getExecutor()->run($this->lastCommandRequest);
+		return $this->getExecutor()->run($this->lastRequest);
 	}
 
 	/**
@@ -135,7 +135,7 @@ class Repository
 	public function reset($point, $hard = FALSE)
 	{
 		$command = $this->run([
-			'reset' . ($hard ? '--hard' : NULL),
+			'reset' . ($hard ? ' --hard' : NULL),
 			$point,
 		]);
 
@@ -188,6 +188,11 @@ class Repository
 		}
 
 		return $remotes;
+	}
+
+	public function getLastRequest()
+	{
+		return $this->lastRequest;
 	}
 
 }
