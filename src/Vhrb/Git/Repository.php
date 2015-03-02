@@ -59,6 +59,7 @@ class Repository
 		$this->lastRequest->setCwd($this->path);
 		$this->lastRequest->setCommand(Git::getGitCommand() . ' ' . implode(' ', $args));
 
+//		var_dump($this->lastRequest);
 		return $this->getExecutor()->run($this->lastRequest);
 	}
 
@@ -151,7 +152,7 @@ class Repository
 	public function addRemote($name, $url)
 	{
 		return $this->run([
-			'remote',
+			Remote::COMMAND_NAME,
 			'add',
 			$name,
 			$url,
@@ -164,7 +165,7 @@ class Repository
 	public function remoteList()
 	{
 		$command = $this->run([
-			'remote',
+			Remote::COMMAND_NAME,
 			'-v',
 		]);
 
