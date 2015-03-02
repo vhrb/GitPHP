@@ -3,10 +3,13 @@ namespace Vhrb\Git;
 
 use Vhrb\Git\Command\Response;
 use Nette\Object;
-use Vhrb\Git\Utils\Validators;
 
 class Remote extends Object
 {
+	const COMMAND_NAME = 'remote';
+
+	/** @var Response[] */
+	private static $show = [];
 
 	/**
 	 * @var
@@ -47,13 +50,31 @@ class Remote extends Object
 	{
 		$this->repository = $repository;
 		$this->name = $name;
-		$this->url = Validators::validateUrl($url);
+
+		$url = trim($url);
+		if ($this->isGitUrl($url)) $this->url = $url;
+		else throw new InvalidArgumentException("This is not a valid source path / URL '$url'");
+	}
+
+	public function isGitUrl($url)
+	{
+		$url = trim($url);
+		if (isset(self::$show[$url])) return self::$show[$url]->isValid();
+
+		self::$show[$url] = $command = $this->repository->run([
+				self::COMMAND_NAME,
+				'show',
+				$url,
+			]
+		);
+
+		return $command->isValid();
 	}
 
 	public function setUrl($url)
 	{
 		$command = $this->repository->run([
-			'remote',
+			self::COMMAND_NAME,
 			'set-url',
 			$this->name,
 			$url,
@@ -74,7 +95,7 @@ class Remote extends Object
 	public function setName($name)
 	{
 		$command = $this->repository->run([
-			'remote',
+			self::COMMAND_NAME,
 			'rename',
 			$this->name,
 			$name,
@@ -104,7 +125,7 @@ class Remote extends Object
 	public function remove()
 	{
 		$command = $this->repository->run([
-			'remote',
+			self::COMMAND_NAME,
 			'rm',
 			$this->name,
 		]);
