@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../vendor/autoload.php';
+include_once __DIR__ . '/bootstrap.php';
 
 use Mockery\Mock;
 use Tester\Assert;
@@ -19,11 +19,14 @@ $repository = new Repository();
 $repository->setExecutor($executor);
 
 // ##### CHECKOUT ######
-$repository->checkout('master');
-Assert::equal(
-	new Request([
-		'cwd' => NULL,
-		'command' => 'git checkout master',
-	]), $repository->getLastRequest());
+test(function () use($repository) {
+	$repository->checkout('master');
+	Assert::equal(
+		new Request([
+			'cwd' => NULL,
+			'command' => 'git checkout master',
+		]), $repository->getLastRequest());
 
-Mockery::close();
+	Mockery::close();
+}
+);

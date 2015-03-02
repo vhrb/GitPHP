@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../vendor/autoload.php';
+include_once __DIR__ . '/bootstrap.php';
 
 use Mockery\Mock;
 use Tester\Assert;
@@ -23,16 +23,18 @@ $executor->shouldReceive('run')
 /** @var Executor $executor */
 $repository->setExecutor($executor);
 
-$repository->fetch();
-Assert::equal(
-	new Request([
-		'command' => 'git fetch origin',
-	]), $repository->getLastRequest());
+test(function () use ($repository) {
+	$repository->fetch();
+	Assert::equal(
+		new Request([
+			'command' => 'git fetch origin',
+		]), $repository->getLastRequest());
 
-$repository->fetchAll();
-Assert::equal(
-	new Request([
-		'command' => 'git fetch ',
-	]), $repository->getLastRequest());
+	$repository->fetchAll();
+	Assert::equal(
+		new Request([
+			'command' => 'git fetch ',
+		]), $repository->getLastRequest());
 
-Mockery::close();
+	Mockery::close();
+});

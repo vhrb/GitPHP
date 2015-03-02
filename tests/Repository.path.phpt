@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../vendor/autoload.php';
+include_once __DIR__ . '/bootstrap.php';
 
 use Mockery\Mock;
 use Tester\Assert;
@@ -25,12 +25,14 @@ $repository = new Repository();
 $repository->setExecutor($executor);
 
 // ###### PATH #######
-/** @var Repository $repository */
-$repository->setPath($path, TRUE);
-$repository->setPath($path, FALSE);
+test(function () use ($repository, $path) {
+	/** @var Repository $repository */
+	$repository->setPath($path, TRUE);
+	$repository->setPath($path, FALSE);
 
-Assert::throws(function () use ($repository) {
-	$repository->setPath('', TRUE);
-}, InvalidArgumentException::class, 'Invalid repository path: ');
+	Assert::throws(function () use ($repository) {
+		$repository->setPath('', TRUE);
+	}, InvalidArgumentException::class, 'Invalid repository path: ');
 
-Mockery::close();
+	Mockery::close();
+});

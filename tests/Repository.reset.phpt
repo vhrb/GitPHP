@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../vendor/autoload.php';
+include_once __DIR__ . '/bootstrap.php';
 
 use Mockery\Mock;
 use Tester\Assert;
@@ -19,17 +19,19 @@ $repository = new Repository();
 /** @var Executor $executor */
 $repository->setExecutor($executor);
 
+test(function () use ($repository) {
 // ##### RESET ######
-$repository->reset('0a2b3c');
-Assert::equal(
-	new Request([
-		'command' => 'git reset 0a2b3c',
-	]), $repository->getLastRequest());
+	$repository->reset('0a2b3c');
+	Assert::equal(
+		new Request([
+			'command' => 'git reset 0a2b3c',
+		]), $repository->getLastRequest());
 
-$repository->reset('0a2b3c', TRUE);
-Assert::equal(
-	new Request([
-		'command' => 'git reset --hard 0a2b3c',
-	]), $repository->getLastRequest());
+	$repository->reset('0a2b3c', TRUE);
+	Assert::equal(
+		new Request([
+			'command' => 'git reset --hard 0a2b3c',
+		]), $repository->getLastRequest());
+});
 
 Mockery::close();
