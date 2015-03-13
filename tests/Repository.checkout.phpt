@@ -28,5 +28,4 @@ test(function () use($repository) {
 		]), $repository->getLastRequest());
 
 	Mockery::close();
-}
-);
+});
