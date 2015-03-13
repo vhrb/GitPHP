@@ -3,10 +3,10 @@ namespace Vhrb\Git;
 
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Strings;
-use Vhrb\Git\Command\Executor;
-use Vhrb\Git\Command\IExecutor;
-use Vhrb\Git\Command\Request;
-use Vhrb\Git\Command\Response;
+use Vhrb\Executor\Executor;
+use Vhrb\Executor\IExecutor;
+use Vhrb\Executor\Request;
+use Vhrb\Executor\Response;
 
 class Repository
 {

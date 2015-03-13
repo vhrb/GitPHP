@@ -10,7 +10,7 @@
 	],
 	"minimum-stability": "stable",
 	"require": {
-		"nette/utils": "~2"
+		"vhrb/executor": "dev-master@dev"
 	},
 	"require-dev": {
 		"nette/tester": "~1",

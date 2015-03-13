@@ -5,9 +5,9 @@ include_once __DIR__ . '/bootstrap.php';
 use Mockery\Mock;
 use Nette\Utils\ArrayHash;
 use Tester\Assert;
-use Vhrb\Git\Command\Request;
-use Vhrb\Git\Command\Response;
-use Vhrb\Git\Command\Executor;
+use Vhrb\Executor\Request;
+use Vhrb\Executor\Response;
+use Vhrb\Executor\Executor;
 use Vhrb\Git\Remote;
 use Vhrb\Git\Repository;
 

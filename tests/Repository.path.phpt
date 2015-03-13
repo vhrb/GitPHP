@@ -4,8 +4,8 @@ include_once __DIR__ . '/bootstrap.php';
 
 use Mockery\Mock;
 use Tester\Assert;
-use Vhrb\Git\Command\Response;
-use Vhrb\Git\Command\Executor;
+use Vhrb\Executor\Response;
+use Vhrb\Executor\Executor;
 use Vhrb\Git\InvalidArgumentException;
 use Vhrb\Git\Repository;
 

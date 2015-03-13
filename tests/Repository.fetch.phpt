@@ -4,8 +4,8 @@ include_once __DIR__ . '/bootstrap.php';
 
 use Mockery\Mock;
 use Tester\Assert;
-use Vhrb\Git\Command\Request;
-use Vhrb\Git\Command\Executor;
+use Vhrb\Executor\Request;
+use Vhrb\Executor\Executor;
 use Vhrb\Git\Repository;
 
 $path = __DIR__ . '/../tmp/test';

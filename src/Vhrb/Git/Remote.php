@@ -1,7 +1,7 @@
 <?php
 namespace Vhrb\Git;
 
-use Vhrb\Git\Command\Response;
+use Vhrb\Executor\Response;
 use Nette\Object;
 
 class Remote extends Object

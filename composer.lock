@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da4d6ca5288a1add0c37e8105e738021",
+    "hash": "8af2dad5974a6cd1af412a99cbc58819",
     "packages": [
         {
             "name": "nette/utils",
@@ -65,6 +65,49 @@
             "description": "Nette Utility Classes",
             "homepage": "http://nette.org",
             "time": "2015-02-24 21:21:17"
+        },
+        {
+            "name": "vhrb/executor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vhrb/Executor.git",
+                "reference": "7490c5f1492c8d1f373cf986eba11d1e884fb479"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vhrb/Executor/zipball/7490c5f1492c8d1f373cf986eba11d1e884fb479",
+                "reference": "7490c5f1492c8d1f373cf986eba11d1e884fb479",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "~2"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*@dev",
+                "nette/tester": "~1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Vhrb\\Executor\\": "src/"
+                },
+                "classmap": [
+                    "src/Vhrb/Executor/exceptions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Michal Dobrovolný",
+                    "email": "xdobro4@gmail.com"
+                }
+            ],
+            "description": "PHP shell commands executor",
+            "time": "2015-03-13 10:32:31"
         }
     ],
     "packages-dev": [
@@ -74,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "ef3ca8f5bbfd720e4f970526a1e7493005ebf41f"
+                "reference": "491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/ef3ca8f5bbfd720e4f970526a1e7493005ebf41f",
-                "reference": "ef3ca8f5bbfd720e4f970526a1e7493005ebf41f",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8",
+                "reference": "491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +174,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2015-02-27 21:38:21"
+            "time": "2015-03-10 22:19:46"
         },
         {
             "name": "nette/tester",
@@ -193,6 +236,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "vhrb/executor": 20,
         "mockery/mockery": 20
     },
     "prefer-stable": false,
