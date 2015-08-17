@@ -119,6 +119,7 @@ class Repository
 	{
 		$command = $this->run([
 			'commit',
+			'-a',
 			'-m',
 			'"' . Strings::replace($message, '~\"~', '\"') . '"',
 		]);
