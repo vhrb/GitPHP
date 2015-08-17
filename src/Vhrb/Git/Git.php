@@ -9,20 +9,6 @@ class Git
 	protected $repository;
 
 	/**
-	 * @param array $args
-	 *
-	 * @return Command
-	 */
-	public function runCommand(array $args)
-	{
-		$c = new Command();
-		$c->setCommand(self::$gitCommand . ' ' . implode(' ', $args));
-		$c->run();
-
-		return $c;
-	}
-
-	/**
 	 * @return Repository
 	 */
 	public function getRepository()

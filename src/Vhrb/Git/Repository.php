@@ -63,6 +63,17 @@ class Repository
 		return $this->getExecutor()->run($this->lastRequest);
 	}
 
+	public function createClone($path, $remoteUrl)
+	{
+		$this->path = $path;
+
+		return $this->run([
+			'clone',
+			$remoteUrl,
+			$this->path,
+		]);
+	}
+
 	/**
 	 * @param $path
 	 * @param bool $create
@@ -72,11 +83,11 @@ class Repository
 	public function setPath($path, $create = FALSE)
 	{
 		$this->path = $path;
-		$this->validate($create);
+		$this->validate();
 
 		if (!$create) return $this;
 
-		$this->run([
+		return $this->run([
 			'init',
 			$this->path,
 		]);
@@ -99,6 +110,51 @@ class Repository
 		$command = $this->run([
 			'fetch',
 			$remote,
+		]);
+
+		return $command;
+	}
+
+	public function commit($message)
+	{
+		$command = $this->run([
+			'commit',
+			'-m',
+			'"' . Strings::replace($message, '~\"~', '\"') . '"',
+		]);
+
+		return $command;
+	}
+
+	/**
+	 * @param string $remote
+	 * @param string $branch
+	 *
+	 * @return Response
+	 */
+	public function push($remote = 'origin', $branch = '--all')
+	{
+		$command = $this->run([
+			'push',
+			$remote,
+			$branch,
+		]);
+
+		return $command;
+	}
+
+	/**
+	 * @param string $remote
+	 * @param string $branch
+	 *
+	 * @return Response
+	 */
+	public function pull($remote = 'origin', $branch = 'master')
+	{
+		$command = $this->run([
+			'pull',
+			$remote,
+			$branch,
 		]);
 
 		return $command;
