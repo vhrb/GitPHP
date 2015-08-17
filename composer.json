@@ -8,13 +8,13 @@
 			"email": "xdobro4@gmail.com"
 		}
 	],
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"require": {
-		"vhrb/executor": "dev-master@dev"
+		"vhrb/executor": "@dev"
 	},
 	"require-dev": {
 		"nette/tester": "~1",
-		"mockery/mockery": "0.9.*@dev"
+		"mockery/mockery": "@dev"
 	},
 	"autoload": {
 		"psr-0": {
