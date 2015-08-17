@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8af2dad5974a6cd1af412a99cbc58819",
+    "hash": "4380607f290442ceb2e79e1a1eb7841c",
     "packages": [
         {
             "name": "nette/utils",
-            "version": "v2.3.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "ff80fce39fdc381e7e0db6cc5ffc82162e59f6bb"
+                "reference": "5580340f5614a7ce9195c27900d12aaf93e3f8e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/ff80fce39fdc381e7e0db6cc5ffc82162e59f6bb",
-                "reference": "ff80fce39fdc381e7e0db6cc5ffc82162e59f6bb",
+                "url": "https://api.github.com/repos/nette/utils/zipball/5580340f5614a7ce9195c27900d12aaf93e3f8e7",
+                "reference": "5580340f5614a7ce9195c27900d12aaf93e3f8e7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.1"
+                "php": ">=5.4.4"
             },
             "conflict": {
                 "nette/nette": "<2.2"
@@ -36,6 +36,11 @@
                 "ext-mbstring": "to use Strings::lower() etc..."
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "src/"
@@ -59,7 +64,7 @@
             ],
             "description": "Nette Utility Classes",
             "homepage": "http://nette.org",
-            "time": "2015-07-13 22:30:00"
+            "time": "2015-08-09 16:58:22"
         },
         {
             "name": "vhrb/executor",
@@ -157,12 +162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8"
+                "reference": "e585573c91b0c821e511afd14666b4503ef7255b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8",
-                "reference": "491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/e585573c91b0c821e511afd14666b4503ef7255b",
+                "reference": "e585573c91b0c821e511afd14666b4503ef7255b",
                 "shasum": ""
             },
             "require": {
@@ -171,13 +176,12 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "hamcrest/hamcrest-php": "~1.1",
                 "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.9.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -215,20 +219,20 @@
                 "test double",
                 "testing"
             ],
-            "time": "2015-03-10 22:19:46"
+            "time": "2015-07-31 13:51:58"
         },
         {
             "name": "nette/tester",
-            "version": "v1.5.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "0807e28b615af7a51acb6903d9f562ccab15fb51"
+                "reference": "1a4b434b93fe6786a7499b674533d29f303718a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/0807e28b615af7a51acb6903d9f562ccab15fb51",
-                "reference": "0807e28b615af7a51acb6903d9f562ccab15fb51",
+                "url": "https://api.github.com/repos/nette/tester/zipball/1a4b434b93fe6786a7499b674533d29f303718a5",
+                "reference": "1a4b434b93fe6786a7499b674533d29f303718a5",
                 "shasum": ""
             },
             "require": {
@@ -271,11 +275,11 @@
                 "testing",
                 "unit"
             ],
-            "time": "2015-07-16 02:05:19"
+            "time": "2015-08-12 16:56:27"
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "vhrb/executor": 20,
         "mockery/mockery": 20
