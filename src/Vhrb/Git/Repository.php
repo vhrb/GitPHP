@@ -204,7 +204,7 @@ class Repository
 	 * @param $name
 	 * @param $url
 	 *
-	 * @return bool
+	 * @return Response
 	 */
 	public function addRemote($name, $url)
 	{
